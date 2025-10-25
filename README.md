@@ -55,3 +55,26 @@
     build ディレクトリ内の build.ninja を読み込み
     g++ で src/main.cpp をコンパイル
     hello という実行ファイルを生成
+
+5. Conanの導入「Docker + CMake + Conan開発環境」
+    - conanfile.txtを作成
+    - Conan プロファイルの初期化を行う為に以下のコマンドをコンテナ内で実行　
+        ``` 
+        conan profile detect --force
+        ```
+    - 依存パッケージのインストール
+        ```
+        conan install . --output-folder=build --build=missing
+        ```
+    - CMakeLists.txt を変更
+    - main.cpp を変更（ここではfmtを使うように変更）
+    - ビルドを行う。これももちろんコンテナ内で
+    ```
+    cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=build/conan/build/Release/generators/conan_toolchain.cmake
+
+    cmake --build build
+    
+    ./build/hello
+
+    ```
+

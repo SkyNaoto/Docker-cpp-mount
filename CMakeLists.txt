@@ -4,4 +4,8 @@ Project(HelloDockerCXX LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Conanが生成する設定ファイルを読み込み
+find_package(fmt REQUIRED)
+
 add_executable(hello src/main.cpp)
+target_link_libraries(hello PRIVATE fmt::fmt)
