@@ -62,6 +62,7 @@
         ``` 
         conan profile detect --force
         ```
+    <Production版　Debug情報が少なくファイルサイズが小さい>
     - 依存パッケージのインストール
         ```
         conan install . --output-folder=/work/build/conan --build=missing -s build_type=Release
@@ -70,7 +71,26 @@
     - main.cpp を変更（ここではfmtを使うように変更）
     - ビルドを行う。これももちろんコンテナ内で
     ```
+    まずはビルドの準備（ビルドに必要な設定ファイルを出力）
     cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=build/conan/build/Release/generators/conan_toolchain.cmake
+
+    ここでビルド
+    cmake --build build
+    
+    実行
+    ./build/hello
+
+    ```
+    <Debug版 Debug情報が多くファイルサイズが大きい>
+    - 依存パッケージのインストール
+        ```
+        conan install . --output-folder=/work/build_debug/conan --build=missing -s build_type=Debug
+        ```
+    - CMakeLists.txt を変更
+    - main.cpp を変更（ここではfmtを使うように変更）
+    - ビルドを行う。これももちろんコンテナ内で
+    ```
+    cmake -S . -B build_debug -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build_debug/conan/build/Debug/generators/conan_toolchain.cmake
 
     cmake --build build
     
