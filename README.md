@@ -64,7 +64,7 @@
         ```
     - 依存パッケージのインストール
         ```
-        conan install . --output-folder=build --build=missing
+        conan install . --output-folder=/work/build/conan --build=missing -s build_type=Release
         ```
     - CMakeLists.txt を変更
     - main.cpp を変更（ここではfmtを使うように変更）
