@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Conanが生成する設定ファイルを読み込み
 find_package(fmt REQUIRED)
+find_package(spdlog REQUIRED)
 
 add_executable(hello src/main.cpp)
-target_link_libraries(hello PRIVATE fmt::fmt)
+target_link_libraries(hello PRIVATE fmt::fmt spdlog::spdlog)
