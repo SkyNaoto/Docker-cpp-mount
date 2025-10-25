@@ -1,0 +1,17 @@
+# Build artifacts
+/build/
+
+# CMake intermediate files
+CMakeCache.txt
+CMakeFiles/
+
+# Conan build output
+/conan/
+*.lock
+*.log
+
+# VSCode settings (if any)
+.vscode/
+
+# Mac system files
+.DS_Store
