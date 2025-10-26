@@ -1,6 +1,7 @@
 # Build artifacts
 /build/
 /build_debug/
+/build_arm64/
 
 # CMake intermediate files
 CMakeCache.txt

@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     ninja-build \
     git \
     python3-pip \
+    gcc-aarch64-linux-gnu \
+    g++-aarch64-linux-gnu \
     && pip3 install --no-cache-dir conan \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,6 +28,10 @@ RUN apt-get update && apt-get install -y \
 
 #&& を使うことで、実際は以下のような一連のコマンドが実行されることになる。
 # apt-get update && apt-get install -y build-essential cmake ninja-build git python3-pip && pip3 install --no-cache-dir conan && rm -rf /var/lib/apt/lists/*
+
+# 以下の行は、aarch64(ARM64) 用のクロスコンパイラをインストールするためのコマンドです。
+# gcc-aarch64-linux-gnu \
+# g++-aarch64-linux-gnu \
 
 WORKDIR /work
 CMD ["bash"]

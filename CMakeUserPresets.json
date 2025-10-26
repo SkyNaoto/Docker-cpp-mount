@@ -5,6 +5,7 @@
     },
     "include": [
         "build/conan/build/Release/generators/CMakePresets.json",
-        "build_debug/conan/build/Debug/generators/CMakePresets.json"
+        "build_debug/conan/build/Debug/generators/CMakePresets.json",
+        "build_arm64/conan/build/Release/generators/CMakePresets.json"
     ]
 }

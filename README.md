@@ -15,6 +15,15 @@
     cpp-dev                       bse       e7c25e15bb16   6 minutes ago   743MB
     ubuntu                        latest    66460d557b25   3 weeks ago     139MB
 
+2+. Docker image を再ビルド(Dockerfile ARM対応後)
+    docker build -t cpp-dev:arm .
+
+    (base) ~/A/S/D/docker-cpp-mount ❯❯❯ docker images
+    REPOSITORY                    TAG       IMAGE ID       CREATED              SIZE
+    cpp-dev                       arm       c2fcddc792cb   About a minute ago   743MB
+    cpp-dev                       bse       e7c25e15bb16   28 hours ago         743MB
+    cpp-dev                       base      b33adf801a3d   28 hours ago         743MB
+
 3. Docker コンテナを起動する
    docker run -it --rm -v "$(pwd)":/work cpp-dev:base
 
@@ -22,6 +31,12 @@
          -v "$(pwd)":/work	Mac のカレントフォルダをコンテナにマウント（共有）する
          --rm	コンテナを終了したら自動削除する
 
+3+. Docker コンテナ（ARM版）を起動する
+    docker run -it --rm -v "$(pwd)":/work -w /work cpp-dev:arm
+
+    意味：-w /work をつけると、「ワーキングディレクトリを /work にする」オプション
+        これで、VS Codeのアタッチ後、最初から/workが開かれる。
+    
 4. コンテナ内でビルドする。
     cmake -S . -B build -G Ninja
     cmake --build build
@@ -96,5 +111,24 @@
     
     ./build/hello
 
+    ```
+    <ARM版>
+    - 依存パッケージのインストール
+    ```
+    conan install . \
+    --profile:build=default \
+    --profile:host=arm64 \
+    --output-folder=build_arm64/conan \
+    --build=missing \
+    -g CMakeDeps \
+    -g CMakeToolchain
+    ```
+    - ビルドを行う。これももちろんコンテナ内で
+    ```
+    cmake -S . -B build_arm64 -G Ninja   -DCMAKE_BUILD_TYPE=Release   -DCMAKE_TOOLCHAIN_FILE=build_arm64/conan/build/Release/generators/conan_toolchain.cmake
+
+    cmake --build build_arm64
+
+    ./build_arm64/hello
     ```
 
